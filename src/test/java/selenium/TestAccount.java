@@ -42,15 +42,6 @@ public class TestAccount extends BaseClass {
     @Test(description = "Test Login Not Success")
     public void Test_Login_Unsuccessful(){
 
-        /*Test Driven Development
-         * AS A USER I want to be to able to login properly
-         *
-         * GIVEN I am at login page
-         * AND I log in with juan.piedra@ucreativa and asdf
-         * WHEN when user is at dashboard page
-         * THEN logout button is displayed
-         * */
-
         LoginPage loginPage = new LoginPage(driver);
         String username = "juan.piedra@ucreativa.com";
         String password = "asdfasdf";
