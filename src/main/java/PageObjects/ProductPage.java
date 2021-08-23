@@ -10,6 +10,7 @@ public class ProductPage extends BaseClass{
     public By ProductQuantityInputSelector = By.id("input-quantity");
     public By AddButtonSelector = By.id("button-cart");
     public By AlertSuccess = By.cssSelector(".alert-success");
+    public By PriceProduct = By.xpath("//*[@id=\"content\"]/div[1]/div[2]/ul[2]/li[1]/h2");
 
     public ProductPage(WebDriver _driver){ this.driver = _driver; }
 
@@ -29,5 +30,42 @@ public class ProductPage extends BaseClass{
     public boolean isAlertSuccessDisplayed(){
         return driver.findElement(AlertSuccess).isDisplayed();
     }
+
+    public String getPriceProduct(){
+        return driver.findElement(PriceProduct).getText();
+    }
+
+
+    public boolean checkPriceProduct(String currency, double price){
+
+        String priceProduct = "";
+        String pricePage = this.getPriceProduct();
+        boolean check = false;
+
+        switch (currency){
+            case "€":
+                priceProduct = price + "€";
+                if (priceProduct.contains(pricePage)){
+                    check = true;
+                }
+                break;
+            case "$":
+                priceProduct = "$"+price;
+                if (priceProduct.equalsIgnoreCase(pricePage)){
+                    check = true;
+                }
+                break;
+            case "£":
+                priceProduct = "£"+price;
+                if (priceProduct.contains(pricePage)){
+                    check = true;
+                }
+                break;
+        }
+
+        return check;
+    }
+
+
 
 }

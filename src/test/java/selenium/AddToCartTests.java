@@ -38,5 +38,42 @@ public class AddToCartTests extends BaseClass {
         Assert.assertEquals(shoppingCartPage.getProductQuantity(), quantity, "Quantity is not matching");
 
     }
+    /* PROYECTO
+    * Buscar producto y agregarlo al carrito
+    * */
+    @Description("Validate that add to cart is working when I search the product")
+    @Test
+    public void Test_Add_To_Cart_SearchProduct(){
+
+        int quantity = 2;
+
+        HeaderPage headerPage = new HeaderPage(driver);
+        HomePage homePage = new HomePage(driver);
+        ProductPage productPage = new ProductPage(driver);
+        ShoppingCartPage shoppingCartPage = new ShoppingCartPage(driver);
+        SearchResultsPage searchResultsPage = new SearchResultsPage(driver);
+
+        searchResultsPage.search("iPhone");
+        String name = homePage.selectFirstProductAndGetName();
+        Assert.assertTrue(productPage.isTitleDisplayed(name));
+
+        productPage.SetQuantity(quantity);
+        productPage.clickAddButton();
+        Assert.assertTrue(productPage.isAlertSuccessDisplayed());
+
+        headerPage.clickOnCartButton();
+        String expectedMessage = "Products marked with *** are not available in the desired quantity or not in stock!";
+        shoppingCartPage.clickOnCheckOutButton();
+
+        //VALIDATION
+        if (shoppingCartPage.GetQuantityMessage().contains(expectedMessage)){
+            Assert.assertTrue(true);
+        }
+        else{
+            Assert.assertTrue(false);
+        }
+        //Assert.assertEquals(shoppingCartPage.GetQuantityMessage(), expectedMessage);
+
+    }
 
 }

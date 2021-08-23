@@ -1,9 +1,6 @@
 package selenium;
 
-import PageObjects.BaseClass;
-import PageObjects.HeaderPage;
-import PageObjects.LoginPage;
-import PageObjects.RegisterPage;
+import PageObjects.*;
 import io.qameta.allure.Description;
 import org.openqa.selenium.*;
 import org.testng.Assert;
@@ -72,6 +69,51 @@ public class TestAccount extends BaseClass {
         //VALIDATION
         Assert.assertEquals(registerPage.GetConfirmationMessage(), expectedMessage);
     }
+
+    /* PROYECTO
+    * Validacion de email existente.
+     */
+    @Test
+    public void Test_Create_New_Account_CheckEmail(){
+        //SETUP
+        String firstName = "Juan";
+        String lastName = "Piedra";
+        String email = "juan@piedra.com";
+        String telephone = "11111";
+        String password = "asdf";
+        String expectedMessage = "Warning: E-Mail Address is already registered!";
+        RegisterPage registerPage = new RegisterPage(driver);
+
+        //RUN
+        registerPage.GoTo();
+        registerPage.FillForm(firstName, lastName, email, telephone, password);
+
+        //VALIDATION
+        Assert.assertEquals(registerPage.GetEmailMessage(), expectedMessage);
+    }
+
+    /* PROYECTO
+     * Creacion de cuentas con el email random.
+     */
+    @Test
+    public void Test_Create_New_Account_EmailRandom(){
+        //SETUP
+        String firstName = "Ana";
+        String lastName = "Mora";
+        String email = Utils.generateRandomEmail(5);
+        String telephone = "88888888";
+        String password = "asdf1234";
+        String expectedMessage = "Your Account Has Been Created!";
+        RegisterPage registerPage = new RegisterPage(driver);
+
+        //RUN
+        registerPage.GoTo();
+        registerPage.FillForm(firstName, lastName, email, telephone, password);
+
+        //VALIDATION
+        Assert.assertEquals(registerPage.GetConfirmationMessage(), expectedMessage);
+    }
+
 
 
 }

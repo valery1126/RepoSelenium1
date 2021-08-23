@@ -16,6 +16,7 @@ public class RegisterPage {
     private By ConfirmRegisterMessageLocator = By.xpath("//div[@id='content']/h1");
     private By TermsCheckBoxLocator = By.name("agree");
     private By ContinueButtonLocator = By.xpath("//input[@value='Continue']");
+    private By EmailRegistered = By.xpath("//*[@id=\"account-register\"]/div[1]");
 
 
     public RegisterPage(WebDriver _driver){
@@ -40,6 +41,10 @@ public class RegisterPage {
 
     public String GetConfirmationMessage(){
         return driver.findElement(ConfirmRegisterMessageLocator).getText();
+    }
+
+    public String GetEmailMessage(){
+        return driver.findElement(EmailRegistered).getText();
     }
 
 

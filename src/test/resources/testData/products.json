@@ -1,0 +1,10 @@
+{
+  "dataSet": [
+    {
+      "name" : "Samsung Galaxy Tab",
+      "dolarsPrice": 241.99,
+      "poundsPrice" : 182.54,
+      "euroPrice": 208.29
+    }
+  ]
+}
